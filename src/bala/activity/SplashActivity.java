@@ -62,8 +62,7 @@ public class SplashActivity extends Activity{
 		// To load text file
         InputStream input;
 		  try {
-			  //input = assertManager.open("xmvparameters.pcs");
-			  input = assertManager.open("xmv600_adu.xml");
+			  input = assertManager.open("dummyfile.xml"); // This xml file will be taken from assert folder
 
 	          int size = input.available();
 	          byte[] buffer = new byte[size];

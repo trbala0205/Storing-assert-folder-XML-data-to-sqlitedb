@@ -112,7 +112,6 @@ public class DBConnection extends SQLiteOpenHelper{
 	{
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		db = getWritableDatabase();
-		//System.out.println("CONSTRUCTOR");
 	}
 
 	public void getWritableDBConnection()
@@ -177,7 +176,6 @@ public class DBConnection extends SQLiteOpenHelper{
 			_aSpanish = dDescription.getString("aSpanish");
 			_bEnglish = dDescription.getString("bEnglish");
 			_cGerman = dDescription.getString("cGerman");
-			System.out.println("updatePowerSLEppScreenListInDatabase-------------------");
 			add_dScreenListContent(1, _aName, 0, _aSpanish, _bEnglish, _cGerman, _bProgModeHide, _cShortMenuhide, _eHide, _gConditionHide);
 			
 			recursiveMenuScreen(aMenuScreen);
@@ -199,7 +197,6 @@ public class DBConnection extends SQLiteOpenHelper{
 				{
 					ref_ids.add(0);
 				}
-				System.out.println("VARIALe LENGTH: ------------------------");
 				JSONObject fChild = aMenuScreen.getJSONObject("fChild");
 				JSONArray child_aMenuScreen = fChild.optJSONArray("aMenuScreen");
 				if(child_aMenuScreen == null)
@@ -213,7 +210,6 @@ public class DBConnection extends SQLiteOpenHelper{
 	        				variableObject = fChild.optJSONObject("bVariableScreen");
 	        				addScreenListVariableScreen(rowcount, variableObject);
 	        			}else{
-	        				System.out.println("VARIALe LENGTH: "+variableScreen.length());
 	        				for(int i=0; i<variableScreen.length(); i++)
 	            			{
 	            				JSONObject prop_varScreen = variableScreen.optJSONObject(i);
@@ -238,10 +234,9 @@ public class DBConnection extends SQLiteOpenHelper{
 						_cGerman = dDescription.getString("cGerman");
 						
 						add_dScreenListContent(rowcount, _aName, ref_ids.get(ref_ids.size() -1), _aSpanish, _bEnglish, _cGerman, _bProgModeHide, _cShortMenuhide, _eHide, _gConditionHide);
-						System.out.println("---"+(rowcount)+"--NAMEEE:"+aMenuScreen.getString("aName")+" ---- "+ ref_ids.get(ref_ids.size() - 1)); 
+						//System.out.println("---"+(rowcount)+"--NAMEEE:"+aMenuScreen.getString("aName")+" ---- "+ ref_ids.get(ref_ids.size() - 1)); 
 						
 						ref_ids.remove(ref_ids.size()-1);
-						System.out.println("---------------------");
 						recursiveMenuScreen(variableObject);
 					}
         			
@@ -275,7 +270,6 @@ public class DBConnection extends SQLiteOpenHelper{
 						if(i == (child_aMenuScreen.length()-1))
 						{
 							ref_ids.remove(ref_ids.size()-1);
-							System.out.println("---------------------");
 						}
 						
 						recursiveMenuScreen(aMenuScreen);
@@ -292,7 +286,6 @@ public class DBConnection extends SQLiteOpenHelper{
 	
 	public void addScreenListVariableScreen(int parentId, JSONObject variableScreen)
 	{
-		System.out.println("---VARIABLE SCREEEN---");
 		
 		String var_aName = "";
 		String var_bModBusAddr = "";
@@ -329,9 +322,6 @@ public class DBConnection extends SQLiteOpenHelper{
 	    
 		getWritableDBConnection();
     	ContentValues values = new ContentValues();
-    	
-		//values.put(id, _id); // EnumItem count
-
     	
     	try {
     		
@@ -416,7 +406,6 @@ public class DBConnection extends SQLiteOpenHelper{
 	
 	public void add_dScreenListContent(int _root_id, String _aName, int _screenRef_id, String _aSpanish, String _bEnglish, String _cGerman, String _bProgModeHide, String _cShortMenuhide, String _eHide, String _gConditionHide)
 	{
-		System.out.println("SCREEEEEEEEEEEEEEEEEN list");
 		getWritableDBConnection();
     	ContentValues values = new ContentValues();
     	
@@ -431,7 +420,6 @@ public class DBConnection extends SQLiteOpenHelper{
 	    values.put(cShortMenuhide, _cShortMenuhide);
 	    values.put(eHide, _eHide);
 	    values.put(gConditionHide, _gConditionHide);
-	    System.out.println("SCREEEEEEEEEEEEEEEEEN list1111");
 	    // Inserting Row
 	    db.insert(TABLE_DSCREENLIST, null, values);
 	    //db.close(); // Closing database connection
@@ -491,9 +479,7 @@ public class DBConnection extends SQLiteOpenHelper{
 	{
 		int resultvalue = 0;
 		String selectQuery = "SELECT COUNT(*)value FROM " + TABLE_BENUMLIST + "";
-		
 		//Log.e(LOG, selectQuery);
-		 
 	    Cursor cursor = db.rawQuery(selectQuery, null);
 	    
 	    if (cursor.getCount() == 0)
@@ -511,7 +497,6 @@ public class DBConnection extends SQLiteOpenHelper{
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		
-		//System.out.println("DATABASE");
 		//Table Creation for dScreenList
 		String CREATE_DSCREENLIST_TABLE = "CREATE TABLE " + TABLE_DSCREENLIST + "("
                 + root_id + " INTEGER PRIMARY KEY,"
